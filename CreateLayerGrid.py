@@ -15,6 +15,12 @@ def showarray(imgArray, format='png'):
     plt.imshow(imgArray)
     plt.show()
 
+def visstd(imgArray, s=0.1):
+    '''Normalize and clip the image range for visualization'''
+    imgArray = (imgArray - imgArray.mean()) / max(imgArray.std(), 1e-4) * s + 0.5
+    return np.uint8(np.clip(imgArray, 0, 1) * 255)
+
+
 model = vgg16.VGG16(weights='imagenet', include_top=False)
 layer_dict = dict([(layer.name, layer) for layer in model.layers[1:]])
 
@@ -41,8 +47,7 @@ for layer in layers:
             img_data = np.random.uniform(size=(1, 3, 128, 128, 3)) + 128.
         else:
             img_data = np.random.uniform(size=(1, 128, 128, 3)) + 128.
-        #for i in range(25):
-        for i in range(1):
+        for i in range(25):        
             loss_value, grads_value = iterate([img_data])
             img_data += grads_value
         row.append((loss_value, img_data[0]))
