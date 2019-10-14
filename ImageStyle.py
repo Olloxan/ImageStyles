@@ -15,10 +15,6 @@ import matplotlib.pyplot as plt
 from scipy import ndimage
 
 
-
-
-from IPython.display import clear_output, Image, display, HTML
-
 def preprocess_image(image_path):
     # Util function to open, resize and format pictures
     # into appropriate tensors.

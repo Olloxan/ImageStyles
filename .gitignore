@@ -1,5 +1,7 @@
 \.vs
 \.git
+\__pycache__
+\data
 
 *.pyproj
 *.sln
