@@ -77,7 +77,7 @@ else:
     img_data = np.random.uniform(size=(1, size, size, 3)) + 128.
 
 layer = layer_dict['block5_conv1']
-neuron = 4
+neuron = 7
 
 if K.image_data_format() == 'channels_first':    
     loss = K.mean(layer.output[:, neuron, :, :])
@@ -98,5 +98,6 @@ for octave in range(20):
         loss_value, grads_value = iterate([img_data])
         img_data += grads_value
     displayImage(visstd(img_data[0]))
+    print(octave)
 
 showarray(visstd(img_data[0]))
