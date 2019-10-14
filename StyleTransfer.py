@@ -51,13 +51,14 @@ def style_loss(layer_1, layer_2):
     return K.sum(K.square(gram1 - gram2)) / (np.prod(layer_2.shape) ** 2)
 
 def run(evaluator, image, num_iter=25):
+    imagecopy = image.copy()
     for i in range(num_iter):
         start_time = time.time()
-
+        
         image, min_val, info = fmin_l_bfgs_b(evaluator.loss, image.flatten(), fprime=evaluator.grads, maxfun=20)
 
         end_time = time.time()
-
+        
         displayImageION(deprocess_image(image.copy(), height, width))
 
         print("Iteration %d completed in %ds" % (i + 1, end_time - start_time))
