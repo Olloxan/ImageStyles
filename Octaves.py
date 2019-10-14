@@ -116,5 +116,10 @@ for octave in range(30):
     displayImage(visstd(img_data[0]))
     print(octave)
 
+<<<<<<< HEAD
 
 showarray(visstd(img_data[0]))
+=======
+showarray(visstd(img_data[0]))
+x=5
+>>>>>>> ff59ed537e0d0aff5c1fa35580cc5d284e83021c
