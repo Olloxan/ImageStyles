@@ -112,3 +112,4 @@ for octave in range(30):
     print(octave)
 
 showarray(visstd(img_data[0]))
+x=5
