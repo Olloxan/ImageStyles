@@ -70,7 +70,7 @@ iterate = K.function([input_img], [loss, grads])
 num_octave = 5 # Number of scales at which to run gradient ascent
 octave_scale = 1.2 # Size ratio between scales
 
-img = preprocess_image('data/sunset.jpg')
+img = preprocess_image('data/bluewaters.jpg')
 
 if K.image_data_format() == 'channels_first':
     original_shape = img.shape[2:]
