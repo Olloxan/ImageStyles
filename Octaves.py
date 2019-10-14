@@ -4,15 +4,17 @@ import keras.backend as K
 from keras.applications import vgg16
 
 import scipy
+
+from scipy import ndimage
 import matplotlib.pyplot as plt
 
-from keras.backend.tensorflow_backend import set_session
-import tensorflow as tf
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.allow_growth = True # dynamically grow the memory used on the GPU
-config.log_device_placement = True  # to log device placement (on which device the operation ran)
+#from keras.backend.tensorflow_backend import set_session
+#import tensorflow as tf
+#config = tf.compat.v1.ConfigProto()
+#config.gpu_options.allow_growth = True # dynamically grow the memory used on the GPU
+#config.log_device_placement = True  # to log device placement (on which device the operation ran)
 
-sess = tf.compat.v1.Session(config=config)
+#sess = tf.compat.v1.Session(config=config)
 
 #set_session(sess)
 
@@ -77,7 +79,9 @@ else:
     img_data = np.random.uniform(size=(1, size, size, 3)) + 128.
 
 layer = layer_dict['block5_conv1']
-neuron = 4
+
+neuron = 4 #7
+
 
 if K.image_data_format() == 'channels_first':    
     loss = K.mean(layer.output[:, neuron, :, :])
@@ -90,13 +94,27 @@ grads = normalizeL2(grads)
 
 iterate = K.function([input_img], [loss, grads])
 
-for octave in range(20):
+
+for octave in range(30):
     if octave > 0:
         size = int(size * 1.1)
         img_data = resize_img(img_data, (size,size))
     for i in range(10):
         loss_value, grads_value = iterate([img_data])
+
+        sigma = (1-octave * 0.03) * 3
+        if K.image_data_format() == 'channels_first':
+            grads_value[0, 0, :, :] = ndimage.gaussian_filter(grads_value[0, 0, :, :, 0], sigma=sigma)
+            grads_value[0, 1, :, :] = ndimage.gaussian_filter(grads_value[0, 1, :, :, 0], sigma=sigma)
+            grads_value[0, 2, :, :] = ndimage.gaussian_filter(grads_value[0, 2, :, :, 0], sigma=sigma)
+        else:
+            grads_value[0, :, :, 0] = ndimage.gaussian_filter(grads_value[0, :, :, 0], sigma=sigma)
+            grads_value[0, :, :, 1] = ndimage.gaussian_filter(grads_value[0, :, :, 1], sigma=sigma)
+            grads_value[0, :, :, 2] = ndimage.gaussian_filter(grads_value[0, :, :, 2], sigma=sigma)
         img_data += grads_value
+
     displayImage(visstd(img_data[0]))
+    print(octave)
+
 
 showarray(visstd(img_data[0]))
