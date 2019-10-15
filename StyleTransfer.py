@@ -91,5 +91,5 @@ style_evaluator = Evaluator(loss_style, result_image)
 
 img = np.random.uniform(0,255,result_image.shape) - 128.
 res = run(style_evaluator, img, num_iter=50)
-showImage(res)
+showImage(deprocess_image(res.copy(), height, width))
 x = 5
