@@ -74,7 +74,7 @@ def total_variation_loss(img, exp=1.25):
     else:
         a = K.square(img[:,:d1-1, :d2-1,:] - img[:,1:,:d2-1,:])
         b = K.square(img[:,:d1-1, :d2-1,:] - img[:,:d1-1,:1,:])
-    return K.sum(in_top_k.pow(a+b, exp))
+    return K.sum(K.pow(a+b, exp))
 
 def content_loss(base, combination):
     return K.sum(K.square(combination - base))
