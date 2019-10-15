@@ -67,6 +67,15 @@ def run(evaluator, image, num_iter=25):
         print(' '.join(k + ':' + str(evaluator.other_values[k]) for k in evaluator.other))
     return image
 
+def total_variation_loss(img, exp=1.25):
+    _, d1, d2, d3 = img.shape
+    if K.image_data_format() == 'channels_first':        
+        raise ValueError('channels first...')
+    else:
+        a = K.square(img[:,:d1-1, :d2-1,:] - img[:,1:,:d2-1,:])
+        b = K.square(img[:,:d1-1, :d2-1,:] - img[:,:d1-1,:1,:])
+    return K.sum(in_top_k.pow(a+b, exp))
+
 # ---- functions ----
 
 width, height = 740, 468
