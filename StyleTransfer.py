@@ -12,9 +12,9 @@ from utility import showImage, displayImageION
 from Classes.Evaluator import Evaluator
 
 
-base_image_path = 'data/Okerk2.jpg'
+base_image_path = 'data/Lukasundich.jpg'
 style1_image_path = 'data/water-lilies-1919-2.jpg'
-style2_image_path = 'data/VanGogh-starry_night_ballance1.jpg'
+style2_image_path = 'data/Picasso.jpg'
 
 def preprocess_image(image_path, target_size=None):
     img = load_img(image_path, target_size=target_size)
@@ -95,12 +95,15 @@ print('model loaded')
 
 feature_outputs = [layer.output for layer in model.layers if '_conv' in layer.name]
 
-loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][2,:,:,:]) / 40
+loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][1,:,:,:]) / 40
 loss_variation = total_variation_loss(combination_image) / 10000 
 
 loss_style = K.variable(0.)
 for idx, layer_features in enumerate(feature_outputs):
     loss_style = loss_style + style_loss(layer_features[0,:,:,:], layer_features[1,:,:,:])
+
+loss_content = loss_content / 40
+loss_variation = loss_variation / 10000
 
 loss_total = loss_content + loss_variation + loss_style
 
