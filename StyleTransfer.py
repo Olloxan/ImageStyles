@@ -96,9 +96,11 @@ loss_style = K.variable(0.)
 for idx, layer_features in enumerate(feature_outputs):
     loss_style = loss_style + style_loss(layer_features[0,:,:,:], layer_features[1,:,:,:])
 
-style_evaluator = Evaluator(loss_style, result_image)
+loss_variation = total_variation_loss(result_image) / 5000
+loss_with_variation = loss_variation + loss_style
+evaluator_with_variation = Evaluator(loss_with_variation, result_image)
 
 img = np.random.uniform(0,255,result_image.shape) - 128.
-res = run(style_evaluator, img, num_iter=50)
+res = run(evaluator_with_variation, img, num_iter=100)
 showImage(deprocess_image(res.copy(), height, width))
 x = 5
