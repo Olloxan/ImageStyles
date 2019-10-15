@@ -12,7 +12,7 @@ class Evaluator(object):
         self.shape = result_image.shape
 
         self.loss_value = None
-        self.grads_values = None
+        self.grad_values = None
 
     def loss(self, img):
         outs = self.iterate([img.reshape(self.shape)])

@@ -40,15 +40,16 @@ def deprocess_image(x, w, h):
 
 def gram_matrix(img):
     if K.image_data_format() != 'channels_first':
-        x = K.permute_dimensions(img, (2, 0, 1))
+        img = K.permute_dimensions(img, (2, 0, 1))
     features = K.batch_flatten(img)
     return K.dot(features -1, K.transpose(features -1)) -1 
 
 def style_loss(layer_1, layer_2):
     gram1 = gram_matrix(layer_1)
     gram2 = gram_matrix(layer_2)
-    test = np.prod(layer_2.shape)
-    return K.sum(K.square(gram1 - gram2)) / (np.prod(layer_2.shape) ** 2)
+    test = np.prod(layer_2.shape)   
+    test2 = K.sum(K.square(gram1 - gram2))
+    return K.sum(K.square(gram1 - gram2)) / (np.prod(layer_2.shape).value ** 2)
 
 def run(evaluator, image, num_iter=25):
     imagecopy = image.copy()
