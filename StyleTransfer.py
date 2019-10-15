@@ -76,12 +76,16 @@ def total_variation_loss(img, exp=1.25):
         b = K.square(img[:,:d1-1, :d2-1,:] - img[:,:d1-1,:1,:])
     return K.sum(in_top_k.pow(a+b, exp))
 
+def content_loss(base, combination):
+    return K.sum(K.square(combination - base))
+
 # ---- functions ----
 
-width, height = 740, 468
+width, height = load_img(base_image_path).size
+base_image = K.variable(preprocess_image(base_image_path))
 style_image = K.variable(preprocess_image(style1_image_path, target_size=(height, width)))
-result_image = K.placeholder(style_image.shape)
-input_tensor = K.concatenate([style_image, result_image], axis=0)
+combination_image = K.placeholder(style_image.shape)
+input_tensor = K.concatenate([style_image, combination_image], axis=0)
 
 print(input_tensor.shape)
 
@@ -91,16 +95,17 @@ print('model loaded')
 
 feature_outputs = [layer.output for layer in model.layers if '_conv' in layer.name]
 
-loss_style = K.variable(0.)
+loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][2,:,:,:]) / 40
+loss_variation = total_variation_loss(combination_image) / 10000 
 
+loss_style = K.variable(0.)
 for idx, layer_features in enumerate(feature_outputs):
     loss_style = loss_style + style_loss(layer_features[0,:,:,:], layer_features[1,:,:,:])
 
-loss_variation = total_variation_loss(result_image) / 5000
-loss_with_variation = loss_variation + loss_style
-evaluator_with_variation = Evaluator(loss_with_variation, result_image)
+loss_total = loss_content + loss_variation + loss_style
 
-img = np.random.uniform(0,255,result_image.shape) - 128.
-res = run(evaluator_with_variation, img, num_iter=100)
+combined_evaluator = Evaluator(loss_total, combination_image, loss_content=loss_content, loss_variation=loss_variation, loss_style=loss_style)
+
+res = run(combined_evaluator, preprocess_image(base_image_path), num_iter=100)
 showImage(deprocess_image(res.copy(), height, width))
 x = 5
