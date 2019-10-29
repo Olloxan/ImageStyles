@@ -12,8 +12,8 @@ from utility import showImage, displayImageION
 from Classes.Evaluator import Evaluator
 
 
-base_image_path = 'data/Droni.jpg'
-style1_image_path = 'data/Pixelart.jpg'
+base_image_path = 'data/Lukasundich.jpg'
+style1_image_path = 'data/skull.jpg'
 style2_image_path = 'data/VanGogh-starry_night_ballance1.jpg'
 
 def preprocess_image(image_path, target_size=None):
@@ -95,8 +95,8 @@ print('model loaded')
 
 feature_outputs = [layer.output for layer in model.layers if '_conv' in layer.name]
 
-loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][1,:,:,:]) / 40
-loss_variation = total_variation_loss(combination_image) / 10000 
+loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][1,:,:,:]) 
+loss_variation = total_variation_loss(combination_image) 
 
 loss_style = K.variable(0.)
 for idx, layer_features in enumerate(feature_outputs):
