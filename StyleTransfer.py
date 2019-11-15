@@ -13,8 +13,8 @@ from Classes.Evaluator import Evaluator
 
 
 base_image_path = 'data/Lukasundich.jpg'
-style1_image_path = 'data/water-lilies-1919-2.jpg'
-style2_image_path = 'data/Picasso.jpg'
+style1_image_path = 'data/Dalisource.jpg'
+#style2_image_path = 'data/duerer2.jpg'
 
 def preprocess_image(image_path, target_size=None):
     img = load_img(image_path, target_size=target_size)
@@ -95,8 +95,8 @@ print('model loaded')
 
 feature_outputs = [layer.output for layer in model.layers if '_conv' in layer.name]
 
-loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][1,:,:,:]) / 40
-loss_variation = total_variation_loss(combination_image) / 10000 
+loss_content = content_loss(feature_outputs[-1][0,:,:,:], feature_outputs[-1][1,:,:,:]) 
+loss_variation = total_variation_loss(combination_image)
 
 loss_style = K.variable(0.)
 for idx, layer_features in enumerate(feature_outputs):
