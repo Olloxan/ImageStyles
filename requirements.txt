@@ -13,7 +13,7 @@ audioread==2.1.8          # via librosa
 backcall==0.1.0           # via ipython
 backports.csv==1.0.7      # via internetarchive
 beautifulsoup4==4.8.0     # via bs4
-bleach==3.1.0             # via nbconvert
+bleach==3.1.1             # via nbconvert
 boto3==1.9.192            # via smart-open
 boto==2.49.0              # via smart-open
 botocore==1.12.192        # via boto3, s3transfer
