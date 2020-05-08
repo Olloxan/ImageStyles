@@ -11,9 +11,10 @@ from utility import showImage, displayImageION
 
 from Classes.Evaluator import Evaluator
 
+import matplotlib.pyplot as plt
 
-base_image_path = 'data/Lukasundich.jpg'
-style1_image_path = 'data/Dalisource.jpg'
+base_image_path = 'data/Fotos/20200208_171622.jpg'
+style1_image_path = 'data/duerer2.jpg'
 #style2_image_path = 'data/duerer2.jpg'
 
 def preprocess_image(image_path, target_size=None):
@@ -57,6 +58,9 @@ def run(evaluator, image, num_iter=25):
         start_time = time.time()
         
         image, min_val, info = fmin_l_bfgs_b(evaluator.loss, image.flatten(), fprime=evaluator.grads, maxfun=20)
+
+        plt.imsave("Gif/%d.jpeg" % i, deprocess_image(image.copy(), height, width))
+        
 
         end_time = time.time()
         
