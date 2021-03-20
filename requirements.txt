@@ -51,7 +51,7 @@ ipython-genutils==0.2.0   # via nbformat, notebook, qtconsole, traitlets
 ipython==7.6.1
 ipywidgets==7.5.0         # via jupyter
 jedi==0.14.1              # via ipython
-jinja2==2.10.1            # via nbconvert, notebook
+jinja2==2.11.3            # via nbconvert, notebook
 jmespath==0.9.4           # via boto3, botocore
 joblib==0.13.2            # via librosa, scikit-learn
 jsonpatch==1.23           # via internetarchive
