@@ -67,7 +67,7 @@ keras==2.2.4
 kiwisolver==1.1.0         # via matplotlib
 librosa==0.7.0
 llvmlite==0.29.0          # via numba
-lxml==4.3.4               # via svglib
+lxml==4.6.3               # via svglib
 markdown==3.1.1           # via tensorboard
 markupsafe==1.1.1         # via jinja2
 matplotlib==3.1.1
