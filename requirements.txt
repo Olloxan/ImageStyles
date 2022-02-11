@@ -90,7 +90,7 @@ pillow==6.2.2
 plyvel==1.1.0
 prometheus-client==0.7.1  # via notebook
 prompt-toolkit==2.0.9     # via ipython, jupyter-console
-protobuf==3.9.0           # via tensorboard, tensorflow
+protobuf==3.15.0           # via tensorboard, tensorflow
 psycopg2-binary==2.8.3
 ptyprocess==0.6.0         # via pexpect, terminado
 pycparser==2.19           # via cffi
