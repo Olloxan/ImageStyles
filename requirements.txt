@@ -71,7 +71,7 @@ lxml==4.3.4               # via svglib
 markdown==3.1.1           # via tensorboard
 markupsafe==1.1.1         # via jinja2
 matplotlib==3.1.1
-mistune==0.8.4            # via nbconvert
+mistune==2.0.3            # via nbconvert
 munch==2.3.2              # via fiona
 mwparserfromhell==0.5.4
 nbconvert==5.5.0          # via jupyter, notebook
