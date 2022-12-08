@@ -18,7 +18,7 @@ boto3==1.9.192            # via smart-open
 boto==2.49.0              # via smart-open
 botocore==1.12.192        # via boto3, s3transfer
 bs4==0.0.1
-certifi==2019.6.16        # via requests
+certifi==2022.12.7        # via requests
 cffi==1.12.3              # via soundfile
 chardet==3.0.4            # via requests
 click-plugins==1.1.1      # via fiona
