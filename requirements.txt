@@ -137,7 +137,7 @@ urllib3==1.25.3           # via botocore, requests
 wcwidth==0.1.7            # via prompt-toolkit
 webencodings==0.5.1       # via bleach, tinycss2
 werkzeug==0.15.5          # via tensorboard
-wheel==0.33.4             # via tensorboard, tensorflow
+wheel==0.38.1             # via tensorboard, tensorflow
 widgetsnbextension==3.5.0  # via ipywidgets
 wrapt==1.11.2             # via tensorflow
 
